@@ -23,10 +23,11 @@ const projects = [
     category: "E-Commerce Premium",
     badge: "HEADLESS NEXT.JS",
     description: "Piattaforma e-commerce per brand di alta moda con focus su micro-interazioni e velocità estrema.",
-    desktopImage: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2070&auto=format&fit=crop",
-    mobileImage: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1999&auto=format&fit=crop",
+    desktopImage: "/desktop-street-legacy.webp",
+    mobileImage: "/mobile-street-legacy.webp",
     color: "primary",
-    gridSpan: "md:col-span-8",
+    gridSpan: "md:col-span-9",
+    aspect: "aspect-video",
     problem: "Il cliente necessitava di un'esperienza utente che riflettesse l'esclusività del brand senza sacrificare le performance SEO.",
     solution: "Ho implementato una strategia di caching avanzata con Next.js e un sistema di animazioni lightweight con Framer Motion.",
     tech: ["Next.js", "Tailwind CSS", "Framer Motion", "Stripe", "Sanity CMS"],
@@ -38,10 +39,11 @@ const projects = [
     category: "Marketplace Multi-Vendor",
     badge: "FULL-STACK MARKET",
     description: "Un marketplace complesso per componenti hardware con gestione dinamica di migliaia di SKU.",
-    desktopImage: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop",
-    mobileImage: "https://images.unsplash.com/photo-1556656793-062ff9878258?q=80&w=2070&auto=format&fit=crop",
+    desktopImage: "/desktop-street-legacy.webp",
+    mobileImage: "/mobile-street-legacy.webp",
     color: "secondary",
-    gridSpan: "md:col-span-4",
+    gridSpan: "md:col-span-3",
+    aspect: "aspect-[9/16]",
     problem: "La gestione di filtri complessi su migliaia di prodotti causava lag significativi nella navigazione.",
     solution: "Sviluppo di un sistema di filtraggio lato server ottimizzato e implementazione di algoritmi di ricerca istantanea.",
     tech: ["React", "TypeScript", "Node.js", "PostgreSQL", "Redis", "ElasticSearch"],
@@ -50,7 +52,7 @@ const projects = [
 ]
 
 const ProjectTrigger = ({ project }: { project: typeof projects[0] }) => {
-  const isHorizontal = project.gridSpan === "md:col-span-8"
+  const isHorizontal = project.gridSpan === "md:col-span-9"
 
   return (
     <DialogTrigger asChild>
@@ -61,24 +63,21 @@ const ProjectTrigger = ({ project }: { project: typeof projects[0] }) => {
           project.gridSpan
         )}
       >
-        {/* Visual Area (Top) - ALTEZZA FISSA per allineamento perfetto */}
         <div className={cn(
-          "relative rounded-2xl overflow-hidden bg-card border border-white/5 transition-all duration-700 group-hover:border-primary/20",
-          "h-[300px] md:h-[450px] w-full" // Altezza fissa su desktop e mobile
+          "relative rounded-2xl overflow-hidden bg-card border border-white/5 transition-all duration-700 group-hover:border-primary/20 w-full",
+          project.aspect
         )}>
           
-          {/* Main Image - Si adatta al container con object-cover */}
           <div className="absolute inset-0 transition-transform duration-1000 group-hover:scale-105">
             <Image 
               src={isHorizontal ? project.desktopImage : project.mobileImage} 
               alt={project.title}
               fill
-              className="object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-700"
-              sizes="(max-width: 768px) 100vw, 80vw"
+              className="object-cover opacity-80 group-hover:opacity-100 transition-all duration-700"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </div>
 
-          {/* Mobile Overlay (Only visible below md breakpoint) */}
           <div className="md:hidden absolute bottom-0 right-[5%] w-[35%] aspect-[9/19] rounded-t-xl overflow-hidden border-x-4 border-t-4 border-background shadow-2xl z-20">
             <Image 
               src={project.mobileImage} 
@@ -88,7 +87,6 @@ const ProjectTrigger = ({ project }: { project: typeof projects[0] }) => {
             />
           </div>
 
-          {/* Hover Icon Overlay */}
           <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
              <div className="size-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-500 shadow-2xl">
                <ArrowUpRight className="size-8" />
@@ -96,7 +94,6 @@ const ProjectTrigger = ({ project }: { project: typeof projects[0] }) => {
           </div>
         </div>
 
-        {/* Info Area (Bottom) - Allineata su asse Y perché l'immagine sopra ha altezza fissa */}
         <div className="flex flex-col gap-3 px-1">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <h3 className="text-3xl font-display font-bold text-foreground tracking-tight group-hover:text-primary transition-colors duration-500">
@@ -130,7 +127,7 @@ const ProjectDialogContent = ({ project }: { project: typeof projects[0] }) => {
           src={project.desktopImage} 
           alt={project.title}
           fill
-          className="object-cover opacity-50 grayscale hover:grayscale-0 transition-all duration-1000"
+          className="object-cover opacity-70 transition-all duration-1000"
         />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40%] aspect-[9/19] rounded-[2rem] overflow-hidden border-8 border-background shadow-2xl z-10 hidden md:block">
            <Image src={project.mobileImage} alt="Mobile View" fill className="object-cover" />
@@ -231,7 +228,7 @@ const Projects = () => {
             Progetti <br /> <span className="text-muted-foreground">di Eccellenza.</span>
           </h3>
         </motion.div>
-        <motion.div style={{ y }} className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20 items-start">
+        <motion.div style={{ y }} className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start">
           {projects.map((project) => (
             <Dialog key={project.id} onOpenChange={handleDialogOpenChange}>
               <ProjectTrigger project={project} />
