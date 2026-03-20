@@ -127,7 +127,7 @@ const Header = () => {
           className={cn(
             "absolute inset-0 -z-10 transition-all duration-500",
             isScrolled || isMobileMenuOpen
-              ? "border-b border-border bg-background/80 shadow-sm backdrop-blur-md"
+              ? "border-b border-border bg-white/2 shadow-sm backdrop-blur-md"
               : "border-b border-transparent bg-transparent"
           )}
         />

@@ -1,9 +1,11 @@
 import Hero from "@/components/hero"
+import AboutMe from "@/components/about-me"
 
 export default function LandingPage() {
   return (
     <div className="flex flex-col">
       <Hero />
+      <AboutMe />
 
       {/* Placeholder Sections to allow scrolling and testing header active state */}
       <section id="progetti" className="min-h-screen flex items-center justify-center bg-card/30">
