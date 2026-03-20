@@ -1,6 +1,7 @@
 import { Manrope, Space_Grotesk } from "next/font/google"
 import "./globals.css"
 import { cn } from "@/lib/utils"
+import { Toaster } from "@/components/ui/sonner"
 
 const fontBody = Manrope({
   subsets: ["latin"],
@@ -27,7 +28,10 @@ export default function RootLayout({
         fontDisplay.variable
       )}
     >
-      <body className="font-body">{children}</body>
+      <body className="font-body">
+        {children}
+        <Toaster position="bottom-right" richColors />
+      </body>
     </html>
   )
 }
