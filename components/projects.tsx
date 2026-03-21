@@ -1,249 +1,349 @@
 "use client"
 
-import React, { useRef } from "react"
-import { motion, useScroll, useTransform, useSpring } from "framer-motion"
+import React, { useRef, useState, useEffect } from "react"
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  AnimatePresence,
+} from "framer-motion"
 import Image from "next/image"
 import { useLenis } from "lenis/react"
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogDescription, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogTrigger 
-} from "@/components/ui/dialog"
+import * as Portal from "@radix-ui/react-portal"
 import { Button } from "@/components/ui/button"
-import { ExternalLink, Github, Layers, Zap, ShieldCheck, ArrowUpRight } from "lucide-react"
+import { ShieldCheck, Zap, ArrowRight, Globe, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const projects = [
   {
-    id: "luxury-ecommerce",
-    title: "Aura Luxury Store",
-    category: "E-Commerce Premium",
-    badge: "HEADLESS NEXT.JS",
-    description: "Piattaforma e-commerce per brand di alta moda con focus su micro-interazioni e velocità estrema.",
-    desktopImage: "/desktop-street-legacy.webp",
-    mobileImage: "/mobile-street-legacy.webp",
+    id: "street-legacy",
+    title: "STREET LEGACY",
+    category: "Clothing E-Commerce",
+    badge: "FULL-STACK NEXT.JS 15",
+    link: "https://www.street-legacy.it",
+    description:
+      "Store di abbigliamento completo con gestione complessa di taglie, varianti prodotto e dashboard per il controllo totale delle vendite.",
+    image: "/desktop-street-legacy.webp",
     color: "primary",
-    gridSpan: "md:col-span-9",
-    aspect: "aspect-video",
-    problem: "Il cliente necessitava di un'esperienza utente che riflettesse l'esclusività del brand senza sacrificare le performance SEO.",
-    solution: "Ho implementato una strategia di caching avanzata con Next.js e un sistema di animazioni lightweight con Framer Motion.",
-    tech: ["Next.js", "Tailwind CSS", "Framer Motion", "Stripe", "Sanity CMS"],
-    tasks: ["Design dell'architettura headless", "Ottimizzazione delle immagini", "Integrazione pagamenti"]
+    gridSpan: "md:col-span-6",
+    aspect: "aspect-[16/10]",
+    problem:
+      "Il brand necessitava di un sistema affidabile per gestire la complessità intrinseca di un negozio di abbigliamento, dove ogni prodotto richiede una gestione precisa di molteplici taglie, disponibilità d'inventario e flussi d'ordine senza errori.",
+    solution:
+      "Sviluppo di una piattaforma full-stack unificata con Next.js 15. Ho realizzato un ecosistema integrato che combina un'interfaccia utente fluida a un potente sistema di gestione (CMS) proprietario. Grazie all'integrazione profonda con le API di Stripe, il sistema gestisce in tempo reale la creazione di prodotti, prezzi e varianti, offrendo un controllo totale su ogni aspetto del business da un'unica dashboard.",
+    tech: [
+      "Next.js 15",
+      "Supabase",
+      "Stripe",
+      "Tailwind CSS",
+      "Server Actions",
+      "Shadcn/UI",
+      "SEO Strategy",
+    ],
   },
   {
-    id: "tech-marketplace",
-    title: "Nova Tech Marketplace",
-    category: "Marketplace Multi-Vendor",
-    badge: "FULL-STACK MARKET",
-    description: "Un marketplace complesso per componenti hardware con gestione dinamica di migliaia di SKU.",
-    desktopImage: "/desktop-street-legacy.webp",
-    mobileImage: "/mobile-street-legacy.webp",
+    id: "iosono",
+    title: "IOSONO",
+    category: "Digital Experience & LMS",
+    badge: "PREMIUM VIDEO PLATFORM",
+    link: "https://www.iosno.com",
+    description:
+      "Piattaforma immersiva per la meditazione con video-corsi esclusivi, streaming protetto e animazioni all'avanguardia.",
+    image: "/desktop-iosno.webp",
     color: "secondary",
-    gridSpan: "md:col-span-3",
-    aspect: "aspect-[9/16]",
-    problem: "La gestione di filtri complessi su migliaia di prodotti causava lag significativi nella navigazione.",
-    solution: "Sviluppo di un sistema di filtraggio lato server ottimizzato e implementazione di algoritmi di ricerca istantanea.",
-    tech: ["React", "TypeScript", "Node.js", "PostgreSQL", "Redis", "ElasticSearch"],
-    tasks: ["Sviluppo del sistema di filtri", "Ottimizzazione database", "Dashboard venditori"]
-  }
+    gridSpan: "md:col-span-6",
+    aspect: "aspect-[16/10]",
+    problem:
+      "Un noto personaggio pubblico del mondo della meditazione cercava un modo per vendere i propri corsi online garantendo la massima protezione dei contenuti e un'esperienza utente calma e coinvolgente.",
+    solution:
+      "Ho creato una piattaforma 'High-End' che fonde un sito vetrina ultra-animato con un sistema di e-learning protetto. L'integrazione con Bunny.net assicura che lo streaming sia accessibile solo agli acquirenti, mentre il dashboard dedicato permette al cliente di gestire i contenuti in totale autonomia.",
+    tech: [
+      "Next.js 15",
+      "Framer Motion",
+      "Bunny.net",
+      "Tailwind CSS",
+      "Stripe",
+      "supabase",
+      "SEO Strategy",
+    ],
+  },
 ]
 
-const ProjectTrigger = ({ project }: { project: typeof projects[0] }) => {
-  const isHorizontal = project.gridSpan === "md:col-span-9"
+const ProjectOverlay = ({
+  project,
+  onClose,
+}: {
+  project: (typeof projects)[0]
+  onClose: () => void
+}) => {
+  const lenis = useLenis()
+
+  useEffect(() => {
+    lenis?.stop()
+    document.documentElement.style.overflow = "hidden"
+    document.body.style.overflow = "hidden"
+
+    return () => {
+      lenis?.start()
+      document.documentElement.style.overflow = ""
+      document.body.style.overflow = ""
+    }
+  }, [lenis])
 
   return (
-    <DialogTrigger asChild>
-      <motion.div 
-        whileHover="hover"
-        className={cn(
-          "group relative cursor-pointer flex flex-col gap-8",
-          project.gridSpan
-        )}
+    <Portal.Root>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        data-lenis-prevent
+        className="fixed inset-0 z-[9999] overflow-y-auto bg-background/95 backdrop-blur-xl"
+        style={{ touchAction: "pan-y" }}
       >
-        <div className={cn(
-          "relative rounded-2xl overflow-hidden bg-card border border-white/5 transition-all duration-700 group-hover:border-primary/20 w-full",
-          project.aspect
-        )}>
-          
-          <div className="absolute inset-0 transition-transform duration-1000 group-hover:scale-105">
-            <Image 
-              src={isHorizontal ? project.desktopImage : project.mobileImage} 
+        <button
+          onClick={onClose}
+          className="group fixed top-6 right-6 z-[10000] flex size-14 items-center justify-center rounded-full border border-white/10 bg-white/5 backdrop-blur-xl transition-all hover:bg-white/10 md:top-10 md:right-10"
+        >
+          <X className="size-6 text-foreground transition-transform duration-300 group-hover:rotate-90" />
+        </button>
+
+        <div className="mx-auto flex min-h-screen max-w-7xl flex-col gap-12 p-6 pt-32 pb-20 md:p-20 md:pt-40">
+          {/* Visual Showcase */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="relative aspect-video w-full overflow-hidden rounded-3xl border border-white/5 bg-card shadow-2xl"
+          >
+            <Image
+              src={project.image}
               alt={project.title}
               fill
-              className="object-cover opacity-80 group-hover:opacity-100 transition-all duration-700"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
-          </div>
-
-          <div className="md:hidden absolute bottom-0 right-[5%] w-[35%] aspect-[9/19] rounded-t-xl overflow-hidden border-x-4 border-t-4 border-background shadow-2xl z-20">
-            <Image 
-              src={project.mobileImage} 
-              alt={`${project.title} Mobile`}
-              fill
               className="object-cover"
+              priority
             />
-          </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
+          </motion.div>
 
-          <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-             <div className="size-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-500 shadow-2xl">
-               <ArrowUpRight className="size-8" />
-             </div>
-          </div>
-        </div>
+          {/* Content Info */}
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-20">
+            <div className="flex flex-col gap-8 lg:col-span-7">
+              <div className="flex flex-col gap-6">
+                <div className="flex items-center gap-4">
+                  <div className="h-px w-12 bg-primary" />
+                  <span className="text-[10px] font-bold tracking-[0.5em] text-primary uppercase">
+                    {project.category}
+                  </span>
+                </div>
+                <h2 className="font-display text-5xl leading-tight font-bold tracking-tighter md:text-7xl">
+                  {project.title}
+                </h2>
+                <div className="flex flex-wrap gap-2">
+                  {project.tech.map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-[10px] font-bold tracking-widest text-muted-foreground uppercase"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
 
-        <div className="flex flex-col gap-3 px-1">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <h3 className="text-3xl font-display font-bold text-foreground tracking-tight group-hover:text-primary transition-colors duration-500">
-              {project.title}
-            </h3>
-            
-            <span className={cn(
-              "w-fit px-4 py-1.5 rounded-full text-[10px] font-bold tracking-widest uppercase border bg-black/40 backdrop-blur-sm",
-              project.color === 'primary' 
-                ? "text-primary border-primary/20" 
-                : "text-secondary border-secondary/20"
-            )}>
-              {project.badge}
-            </span>
+              <div className="flex flex-col gap-12 py-8">
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-center gap-3">
+                    <ShieldCheck className="size-5 text-primary" />
+                    <span className="text-xs font-bold tracking-[0.3em] text-foreground uppercase">
+                      La Sfida
+                    </span>
+                  </div>
+                  <p className="font-body text-lg leading-relaxed text-muted-foreground">
+                    {project.problem}
+                  </p>
+                </div>
+                <div className="flex flex-col gap-4">
+                  <div className="flex items-center gap-3">
+                    <Zap className="size-5 text-secondary" />
+                    <span className="text-xs font-bold tracking-[0.3em] text-foreground uppercase">
+                      La Soluzione
+                    </span>
+                  </div>
+                  <p className="font-body text-lg leading-relaxed text-muted-foreground">
+                    {project.solution}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col justify-end lg:col-span-5">
+              <div className="rounded-3xl border border-white/5 bg-white/[0.02] p-8 backdrop-blur-sm md:p-12">
+                <p className="mb-8 font-body text-xl leading-relaxed text-foreground/80">
+                  {project.description}
+                </p>
+
+                <Button
+                  asChild
+                  variant="default"
+                  className="h-20 w-full rounded-2xl bg-primary font-display text-xs font-bold tracking-[0.2em] text-primary-foreground uppercase shadow-2xl transition-all duration-500 hover:scale-[1.02]"
+                >
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    VISITA IL SITO LIVE <ArrowRight className="ml-4 size-5" />
+                  </a>
+                </Button>
+              </div>
+            </div>
           </div>
-          
-          <p className="text-muted-foreground text-base leading-relaxed line-clamp-2 max-w-3xl">
-            {project.description}
-          </p>
         </div>
       </motion.div>
-    </DialogTrigger>
+    </Portal.Root>
   )
 }
 
-const ProjectDialogContent = ({ project }: { project: typeof projects[0] }) => {
+const ProjectCard = ({
+  project,
+  onOpen,
+}: {
+  project: (typeof projects)[0]
+  onOpen: () => void
+}) => {
   return (
-    <DialogContent className="max-w-[95vw] md:max-w-[85vw] lg:max-w-[1250px] bg-background/98 backdrop-blur-3xl border-border p-0 overflow-hidden rounded-[2.5rem] shadow-2xl max-h-[92vh] flex flex-col md:flex-row border-white/5">
-      <div className="md:w-[45%] bg-card relative min-h-[400px] md:min-h-full overflow-hidden border-b md:border-b-0 md:border-r border-border">
-        <Image 
-          src={project.desktopImage} 
-          alt={project.title}
-          fill
-          className="object-cover opacity-70 transition-all duration-1000"
-        />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40%] aspect-[9/19] rounded-[2rem] overflow-hidden border-8 border-background shadow-2xl z-10 hidden md:block">
-           <Image src={project.mobileImage} alt="Mobile View" fill className="object-cover" />
+    <motion.div
+      onClick={onOpen}
+      whileHover="hover"
+      className={cn(
+        "group relative flex cursor-pointer flex-col gap-6",
+        project.gridSpan
+      )}
+    >
+      <div
+        className={cn(
+          "relative w-full overflow-hidden rounded-2xl border border-white/5 bg-card transition-all duration-700 group-hover:border-primary/40",
+          project.aspect
+        )}
+      >
+        <div className="absolute inset-0 transition-transform duration-1000 group-hover:scale-105">
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-cover opacity-90 transition-all duration-700 group-hover:opacity-100"
+            sizes="(max-width: 768px) 100vw, 800px"
+          />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-90 z-20" />
-        <div className="absolute inset-0 p-12 flex flex-col justify-end z-30">
-          <span className="text-primary text-[10px] tracking-[0.4em] font-bold uppercase mb-4">{project.category}</span>
-          <h2 className="text-5xl md:text-7xl font-display font-bold tracking-tighter mb-8 leading-none">{project.title}</h2>
-          <div className="flex flex-wrap gap-2">
-            {project.tech.map(t => (
-              <span key={t} className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
-                {t}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-      <div className="md:w-[55%] p-10 md:p-16 flex flex-col gap-12 overflow-y-auto custom-scrollbar bg-background">
-        <DialogHeader className="text-left">
-          <DialogTitle className="text-xs tracking-[0.5em] text-primary uppercase font-bold mb-4 flex items-center gap-4">
-             <div className="h-px w-12 bg-primary/30" />
-             OVERVIEW
-          </DialogTitle>
-          <DialogDescription className="text-foreground text-xl md:text-2xl leading-tight font-display font-bold">
-            {project.description}
-          </DialogDescription>
-        </DialogHeader>
-        <div className="grid grid-cols-1 gap-12">
-          <div className="group/section">
-            <div className="flex items-center gap-3 mb-4 text-xs font-bold uppercase tracking-[0.3em] text-muted-foreground">
-              <ShieldCheck className="size-4" /> LA SFIDA
-            </div>
-            <p className="text-muted-foreground text-base md:text-lg leading-relaxed border-l-2 border-primary/20 pl-6">
-              {project.problem}
-            </p>
-          </div>
-          <div className="group/section">
-            <div className="flex items-center gap-3 mb-4 text-xs font-bold uppercase tracking-[0.3em] text-muted-foreground">
-              <Zap className="size-4" /> LA SOLUZIONE
-            </div>
-            <p className="text-muted-foreground text-base md:text-lg leading-relaxed border-l-2 border-primary/20 pl-6">
-              {project.solution}
-            </p>
-          </div>
-          <div className="group/section">
-            <div className="flex items-center gap-3 mb-6 text-xs font-bold uppercase tracking-[0.3em] text-muted-foreground">
-              <Layers className="size-4" /> IMPLEMENTAZIONE
-            </div>
-            <div className="grid grid-cols-1 gap-4">
-              {project.tasks.map((task, i) => (
-                <div key={i} className="flex items-start gap-4 p-5 rounded-2xl bg-white/2 border border-white/5">
-                  <div className="mt-1 size-1.5 rounded-full bg-primary" />
-                  <span className="text-sm md:text-base text-foreground/80 font-medium">{task}</span>
-                </div>
-              ))}
-            </div>
+
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-500 group-hover:opacity-100">
+          <div className="flex size-14 translate-y-4 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-[0_0_40px_rgba(var(--primary),0.5)] transition-all duration-500 group-hover:translate-y-0">
+            <ArrowRight className="size-6" />
           </div>
         </div>
-        <div className="pt-12 mt-auto border-t border-border flex flex-col sm:flex-row gap-6">
-           <Button className="flex-1 rounded-full py-8 font-display uppercase text-xs tracking-[0.2em] font-bold shadow-xl shadow-primary/10">
-             VISITA IL SITO <ExternalLink className="ml-3 size-4" />
-           </Button>
-           <Button variant="outline" className="flex-1 rounded-full py-8 font-display uppercase text-xs tracking-[0.2em] font-bold border-white/10">
-             REPO GITHUB <Github className="ml-3 size-4" />
-           </Button>
+
+        <div className="absolute top-4 right-4 z-20">
+          <span
+            className={cn(
+              "rounded-lg border bg-black/60 px-3 py-1.5 text-[9px] font-bold tracking-widest uppercase backdrop-blur-md",
+              project.color === "primary"
+                ? "border-primary/30 text-primary"
+                : "border-secondary/30 text-secondary"
+            )}
+          >
+            {project.badge}
+          </span>
         </div>
       </div>
-    </DialogContent>
+
+      <div className="flex flex-col gap-1 px-2">
+        <span className="text-[10px] font-bold tracking-[0.3em] text-muted-foreground uppercase transition-colors duration-300 group-hover:text-primary">
+          {project.category}
+        </span>
+        <h3 className="font-display text-3xl font-bold tracking-tight text-foreground transition-colors duration-500 group-hover:text-primary md:text-4xl">
+          {project.title}
+        </h3>
+      </div>
+    </motion.div>
   )
 }
 
 const Projects = () => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const lenis = useLenis()
+  const [selectedProject, setSelectedProject] = useState<
+    (typeof projects)[0] | null
+  >(null)
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   })
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 })
-  const y = useTransform(smoothProgress, [0, 1], [0, -100])
-  const handleDialogOpenChange = (open: boolean) => {
-    if (open) lenis?.stop()
-    else lenis?.start()
-  }
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+  })
+  const y = useTransform(smoothProgress, [0, 1], [0, -80])
 
   return (
-    <section id="progetti" ref={containerRef} className="relative py-32 md:py-60 overflow-hidden">
-      <div className="container relative z-10">
-        <motion.div 
+    <section
+      id="progetti"
+      ref={containerRef}
+      className="relative overflow-hidden py-32 md:py-60"
+    >
+      <div className="relative z-10 container">
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col gap-8 mb-24 md:mb-32 max-w-3xl"
+          className="mb-24 flex max-w-3xl flex-col gap-8 md:mb-32"
         >
-          <div className="h-1.5 w-24 bg-primary rounded-full" />
-          <h2 className="text-primary text-xs tracking-[0.6em] font-bold uppercase">Portfolio</h2>
-          <h3 className="text-6xl md:text-8xl font-display font-bold leading-[1.1] tracking-tight">
-            Progetti <br /> <span className="text-muted-foreground">di Eccellenza.</span>
+          <div className="h-1.5 w-24 rounded-full bg-primary" />
+          <h2 className="text-xs font-bold tracking-[0.6em] text-primary uppercase">
+            Portfolio
+          </h2>
+          <h3 className="font-display text-6xl leading-[1.1] font-bold tracking-tight text-foreground md:text-8xl">
+            Progetti <br />{" "}
+            <span className="text-muted-foreground">in mostra.</span>
           </h3>
         </motion.div>
-        <motion.div style={{ y }} className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start">
+        <motion.div
+          style={{ y }}
+          className="grid grid-cols-1 items-start gap-8 md:grid-cols-12 md:gap-10"
+        >
           {projects.map((project) => (
-            <Dialog key={project.id} onOpenChange={handleDialogOpenChange}>
-              <ProjectTrigger project={project} />
-              <ProjectDialogContent project={project} />
-            </Dialog>
+            <ProjectCard
+              key={project.id}
+              project={project}
+              onOpen={() => setSelectedProject(project)}
+            />
           ))}
         </motion.div>
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="mt-40 flex justify-center">
-           <Button variant="ghost" className="group h-auto py-4 text-muted-foreground hover:text-primary transition-all text-[10px] tracking-[0.5em] font-bold uppercase">
-             Esplora tutti i progetti <ExternalLink className="ml-4 size-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-           </Button>
-        </motion.div>
+        {/* <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          className="mt-40 flex justify-center"
+        >
+          <Button
+            variant="ghost"
+            className="group h-auto py-4 text-[10px] font-bold tracking-[0.5em] text-muted-foreground uppercase transition-all hover:text-primary"
+          >
+            Esplora tutti i progetti{" "}
+            <ArrowRight className="ml-4 size-4 transition-transform group-hover:translate-x-1" />
+          </Button>
+        </motion.div> */}
       </div>
-      <div className="absolute top-1/4 left-[-15%] w-[50%] h-[50%] bg-primary/5 blur-[180px] -z-10 rounded-full animate-pulse" />
-      <div className="absolute bottom-[-15%] right-[-15%] w-[50%] h-[50%] bg-secondary/5 blur-[180px] -z-10 rounded-full" />
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectOverlay
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
+        )}
+      </AnimatePresence>
+      <div className="absolute top-1/4 left-[-15%] -z-10 h-[50%] w-[50%] animate-pulse rounded-full bg-primary/5 blur-[180px]" />
+      <div className="absolute right-[-15%] bottom-[-15%] -z-10 h-[50%] w-[50%] rounded-full bg-secondary/5 blur-[180px]" />
     </section>
   )
 }

@@ -64,16 +64,16 @@ const Hero = () => {
           variants={itemVariants}
           className="mb-6 text-[10px] font-bold tracking-[0.4em] text-primary uppercase"
         >
-          Creative Developer & Digital Architect
+          Sviluppatore Web Freelance · Savona · Liguria
         </motion.span>
 
         <motion.h1
           variants={itemVariants}
           className="mb-8 max-w-6xl font-display text-5xl leading-[1.1] font-bold tracking-tight md:text-7xl lg:text-9xl"
         >
-          Ciao, sono Tommaso, creo <br />
+          Porto il tuo business <br />
           <span className="bg-gradient-to-r from-primary via-primary/80 to-secondary bg-clip-text text-transparent">
-            esperienze digitali
+            al livello superiore.
           </span>
         </motion.h1>
 
@@ -81,9 +81,7 @@ const Hero = () => {
           variants={itemVariants}
           className="mb-12 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base"
         >
-          Progetto e sviluppo interfacce ad alte prestazioni con un'estetica
-          ricercata. Specializzato in React, Next.js e animazioni fluide per
-          brand ambiziosi.
+          Realizzo siti web ed e-commerce ad alte prestazioni che uniscono design d'avanguardia e strategie SEO efficaci. Il partner tecnologico per la tua crescita digitale a Savona e in tutta la Liguria.
         </motion.p>
 
         <motion.div variants={itemVariants} className="flex flex-row gap-6">

@@ -1,21 +1,23 @@
-# Next.js template
+# Ciao, sono Tommaso Macco. 👋
 
-This is a Next.js template with shadcn/ui.
+Benvenuto nel mio spazio digitale. Se sei finito qui, probabilmente sei curioso di vedere come scrivo codice o magari stai solo cercando di capire chi c'è dietro questo portfolio.
 
-## Adding components
+### In breve:
 
-To add components to your app, run the following command:
+Sono uno sviluppatore web di Savona che preferisce la sostanza ai fronzoli. Mi piace costruire cose che non solo funzionino bene, ma che siano anche piacevoli da usare. Passo le mie giornate tra Next.js, un po' di CSS (quello buono) e la costante ricerca di rendere il web un posto un po' più ordinato e veloce.
 
-```bash
-npx shadcn@latest add button
-```
+### Cosa troverai qui:
 
-This will place the ui components in the `components` directory.
+Il mio portfolio personale, niente di piú.
 
-## Using components
+### Se vuoi scambiare due parole:
 
-To use the components in your app, import them as follows:
+Non mordo e mi piace sempre parlare di nuovi progetti o di tecnologie interessanti. Se hai un'idea in mente o vuoi semplicemente salutarmi, mi trovi qui:
 
-```tsx
-import { Button } from "@/components/ui/button";
-```
+- **Email:** macco.sviluppo@gmail.com
+- **LinkedIn:** [Tommaso Macco](https://linkedin.com/in/maccodeveloper/)
+- **Instagram:** [@tommasomacco](https://instagram.com/maccodeveloper)
+
+---
+
+_Savona, Italia._

@@ -35,11 +35,7 @@ const reasons = [
 const contactFormSchema = z.object({
   name: z.string().min(2, "Il nome deve avere almeno 2 caratteri"),
   email: z.string().email("Inserisci un indirizzo email valido"),
-  reason: z
-    .string({
-      required_error: "Scegli una motivazione per procedere",
-    })
-    .min(1, "Scegli una motivazione per procedere"),
+  reason: z.string().min(1, "Scegli una motivazione per procedere"),
   message: z.string().min(10, "Il messaggio deve avere almeno 10 caratteri"),
 })
 
@@ -245,7 +241,7 @@ const Contact = () => {
                 </Select>
                 {errors.reason && (
                   <span className="text-destructive ml-1 text-[10px] font-bold">
-                    {errors.reason.message}
+                    Seleziona una motivazione per procedere
                   </span>
                 )}
               </div>

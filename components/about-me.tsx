@@ -3,6 +3,7 @@
 import React, { useRef } from "react"
 import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 const AboutMe = () => {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -30,34 +31,36 @@ const AboutMe = () => {
     <section
       id="chi-sono"
       ref={containerRef}
-      className="relative flex min-h-screen items-center justify-center overflow-hidden py-32"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden py-40 md:py-60"
     >
       {/* Elemento decorativo di sfondo */}
       <motion.div
-        style={{ opacity: useTransform(smoothProgress, [0, 0.5], [0, 0.05]) }}
-        className="pointer-events-none absolute top-1/2 left-1/2 -z-20 -translate-x-1/2 -translate-y-1/2 font-display text-[20vw] font-bold whitespace-nowrap text-primary select-none"
+        style={{ opacity: useTransform(smoothProgress, [0, 0.5], [0, 0.03]) }}
+        className="pointer-events-none absolute top-1/2 left-1/2 -z-20 -translate-x-1/2 -translate-y-1/2 font-display text-[25vw] font-bold whitespace-nowrap text-primary select-none"
       >
         ABOUT ME
       </motion.div>
 
-      <div className="container grid grid-cols-1 items-center gap-20 lg:grid-cols-2">
+      <div className="container grid grid-cols-1 items-center gap-16 md:gap-24 lg:grid-cols-12">
         {/* Immagine con Parallasse 3D Soft */}
         <motion.div
           style={{ y: yImage, opacity, rotate: rotateImage, scale }}
-          className="group perspective-1000 relative mx-auto aspect-[4/5] w-full max-w-md lg:mx-0"
+          className="group perspective-1000 relative mx-auto aspect-[4/5] w-full max-w-lg lg:col-span-5 lg:mx-0"
         >
           {/* Frames decorativi */}
-          <div className="absolute -inset-4 -z-10 rounded-2xl border border-primary/20 transition-transform duration-700 group-hover:scale-105" />
-          <div className="absolute -inset-8 -z-20 rounded-2xl border border-secondary/10 transition-transform duration-1000 group-hover:scale-110" />
+          <div className="absolute -inset-6 -z-10 rounded-3xl border border-primary/10 transition-transform duration-700 group-hover:scale-105" />
+          <div className="absolute -inset-12 -z-20 rounded-3xl border border-secondary/5 transition-transform duration-1000 group-hover:scale-110" />
 
-          <div className="relative h-full w-full overflow-hidden rounded-2xl bg-card shadow-2xl transition-transform duration-500 group-hover:translate-z-10">
+          <div className="relative h-full w-full overflow-hidden rounded-3xl bg-card shadow-2xl transition-transform duration-500 group-hover:translate-z-10">
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
 
-            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-muted to-background">
-              <span className="rotate-[-15deg] font-display text-8xl font-bold tracking-tighter text-primary/10 uppercase select-none">
-                Macco
-              </span>
-            </div>
+            <Image
+              src="/aboutme.webp"
+              alt="Tommaso Macco"
+              fill
+              className="-scale-x-100 object-cover grayscale transition-all duration-700 group-hover:-scale-x-110 group-hover:scale-y-110 group-hover:grayscale-0"
+              priority
+            />
 
             <div className="pointer-events-none absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat opacity-10 mix-blend-overlay" />
           </div>
@@ -67,63 +70,68 @@ const AboutMe = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.5 }}
-            className="absolute -right-8 -bottom-8 z-10 hidden rounded-2xl bg-primary p-8 font-display font-bold text-primary-foreground shadow-2xl md:block"
+            className="absolute -right-6 -bottom-6 z-10 hidden rounded-2xl border border-white/10 bg-black/60 p-6 backdrop-blur-xl md:block"
           >
-            <div className="mb-1 text-[10px] tracking-[0.2em] uppercase opacity-80">
-              Esperienza
+            <div className="font-display text-4xl font-bold tracking-tighter text-foreground">
+              FULL-STACK
             </div>
-            <div className="text-4xl tracking-tighter">5+ ANNI</div>
           </motion.div>
         </motion.div>
 
         {/* Contenuto Testuale */}
         <motion.div
           style={{ y: yText, opacity }}
-          className="flex flex-col gap-10"
+          className="flex flex-col gap-12 lg:col-span-6 lg:col-start-7"
         >
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-8">
             <motion.div
               initial={{ width: 0 }}
-              whileInView={{ width: "80px" }}
-              className="h-1 rounded-full bg-primary"
+              whileInView={{ width: "100px" }}
+              className="h-1.5 rounded-full bg-primary"
             />
-            <h2 className="text-xs font-bold tracking-[0.5em] text-primary uppercase">
-              Tommaso Macco
-            </h2>
-            <h3 className="font-display text-5xl leading-[1.1] font-bold tracking-tight md:text-7xl">
-              Design che parla, <br />
-              <span className="text-muted-foreground">codice che respira.</span>
-            </h3>
+            <div className="flex flex-col gap-4">
+              <h2 className="text-xs font-bold tracking-[0.5em] text-primary uppercase">
+                Tommaso Macco · Web Developer
+              </h2>
+              <h3 className="font-display text-5xl leading-[1.1] font-bold tracking-tight md:text-8xl">
+                Innovazione a Savona, <br />
+                <span className="text-muted-foreground">visione globale.</span>
+              </h3>
+            </div>
           </div>
 
-          <div className="flex max-w-xl flex-col gap-8 font-body text-lg leading-relaxed text-muted-foreground md:text-xl">
+          <div className="flex flex-col gap-10 font-body text-lg leading-relaxed text-muted-foreground md:text-xl">
             <p>
-              Trasformo visioni complesse in interfacce digitali intuitive e
-              coinvolgenti. La mia filosofia si basa sull'equilibrio perfetto
-              tra estetica minimalista e ingegneria software di alto livello.
+              Sono uno sviluppatore web freelance basato a Savona, con la
+              flessibilità di seguire progetti in tutta la Liguria e nel resto
+              d'Italia. Non mi piacciono le soluzioni predefinite: preferisco
+              costruire siti web e applicazioni su misura, curando ogni riga di
+              codice per garantire velocità, sicurezza e facilità d'uso.
             </p>
             <p>
-              Ogni progetto è un'opportunità per spingere i confini del
-              possibile sul web, utilizzando le ultime tecnologie per creare
-              performance che lasciano il segno.
+              Dalla realizzazione di e-commerce complessi con Next.js
+              all'ottimizzazione SEO strategica, il mio approccio è concreto e
+              orientato alla risoluzione dei problemi. Il mio obiettivo è
+              aiutare aziende e professionisti a navigare il digitale con
+              strumenti moderni, solidi e pensati per durare nel tempo.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-12 border-t border-white/5 pt-10">
-            <div className="flex flex-col gap-2">
-              <div className="font-display text-3xl font-bold text-foreground">
-                30+
+          <div className="grid grid-cols-2 gap-16 border-t border-white/5 pt-12">
+            <div className="flex flex-col gap-3">
+              <div className="font-display text-4xl font-bold text-foreground">
+                5+
               </div>
-              <div className="text-[10px] font-bold tracking-[0.3em] text-muted-foreground uppercase">
-                PROGETTI
+              <div className="text-[10px] font-bold tracking-[0.3em] text-primary uppercase">
+                Anni di Esperienza
               </div>
             </div>
-            <div className="flex flex-col gap-2">
-              <div className="font-display text-3xl font-bold text-foreground">
-                100%
+            <div className="flex flex-col gap-3">
+              <div className="font-display text-4xl font-bold text-foreground">
+                20+
               </div>
-              <div className="text-[10px] font-bold tracking-[0.3em] text-muted-foreground uppercase">
-                QUALITÀ
+              <div className="text-[10px] font-bold tracking-[0.3em] text-primary uppercase">
+                Progetti
               </div>
             </div>
           </div>

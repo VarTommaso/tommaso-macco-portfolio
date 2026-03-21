@@ -14,52 +14,52 @@ import {
 
 const experiences = [
   {
-    year: "2026 - Presente",
-    title: "Freelance Developer",
-    company: "Freelance",
-    description: "Inizio del percorso indipendente. Progetti innovativi con massima libertà creativa.",
-    icon: Wand2,
-    color: "primary",
-  },
-  {
-    year: "2024 - 2025",
-    title: "Software Architect",
-    company: "DICOTEC Srls",
-    description: "Sviluppo gestionali logistici complessi e webapp aziendali ad alte prestazioni.",
-    icon: Briefcase,
-    color: "secondary",
-  },
-  {
-    year: "2022 - 2023",
-    title: "Junior Developer",
-    company: "Studio Senior Dev",
-    description: "Collaborazione diretta su progetti reali, calcolatori fiscali e UI dinamiche.",
-    icon: Code2,
-    color: "primary",
-  },
-  {
-    year: "2020 - 2021",
-    title: "Advanced Education",
-    company: "BOOLEAN",
-    description: "Percorso intensivo su JavaScript, React e architetture web moderne.",
-    icon: GraduationCap,
+    year: "Anni 16",
+    title: "Passione Hardware",
+    company: "Assemblaggio PC",
+    description: "I primi passi nel mondo della tecnologia partendo dall'hardware. Studio approfondito dell'architettura dei sistemi e assemblaggio di workstation ad alte prestazioni.",
+    icon: Laptop,
     color: "secondary",
   },
   {
     year: "2019",
-    title: "Mentorship",
-    company: "Self-Taught",
-    description: "Primi passi nel codice sotto la guida di un mentore senior.",
+    title: "Mentorship Senior",
+    company: "Percorso Autodidatta",
+    description: "Approccio strutturato alla programmazione sotto la guida di un mentore senior, focalizzandomi sulle basi dell'ingegneria del software e del problem solving.",
     icon: Rocket,
     color: "primary",
   },
   {
-    year: "Anni 16",
-    title: "Hardware Passion",
-    company: "PC Builder",
-    description: "Montaggio del primo PC e studio approfondito dell'architettura hardware.",
-    icon: Laptop,
+    year: "2020 - 2021",
+    title: "Formazione Avanzata",
+    company: "BOOLEAN",
+    description: "Percorso intensivo full-stack dedicato alle tecnologie web più moderne, con un focus verticale su JavaScript, React e la gestione di architetture dati complesse.",
+    icon: GraduationCap,
     color: "secondary",
+  },
+  {
+    year: "2022 - 2023",
+    title: "Sviluppatore Junior",
+    company: "Studio Senior Dev",
+    description: "Collaborazione attiva su progetti reali di livello enterprise, contribuendo allo sviluppo di calcolatori fiscali e interfacce utente dinamiche per il settore business.",
+    icon: Code2,
+    color: "primary",
+  },
+  {
+    year: "2024 - 2025",
+    title: "Architetto Software",
+    company: "DICOTEC Srls",
+    description: "Responsabile della progettazione e dello sviluppo di sistemi gestionali logistici avanzati, ottimizzando i processi aziendali attraverso webapp scalabili e sicure.",
+    icon: Briefcase,
+    color: "secondary",
+  },
+  {
+    year: "2026 - Presente",
+    title: "Sviluppatore Freelance",
+    company: "Libera Professione",
+    description: "Consulenza tecnologica e sviluppo di soluzioni digitali su misura. Creo siti web ed e-commerce d'élite per aziende che puntano all'eccellenza e alla massima performance.",
+    icon: Wand2,
+    color: "primary",
   }
 ]
 
@@ -91,7 +91,7 @@ const ExperienceItem = ({ exp, index }: { exp: any, index: number }) => {
           {exp.year}
         </div>
         
-        <h4 className="text-xl md:text-4xl font-display font-bold text-foreground mb-1 tracking-tight leading-tight">
+        <h4 className="text-xl md:text-3xl font-display font-bold text-foreground mb-1 tracking-tight leading-tight">
           {exp.title}
         </h4>
         
@@ -132,7 +132,7 @@ const Experience = () => {
           className="flex flex-col gap-6 mb-24 max-w-3xl items-start text-left"
         >
           <div className="h-1.5 w-20 bg-gradient-to-r from-primary to-secondary rounded-full" />
-          <h2 className="text-primary text-xs tracking-[0.5em] font-bold uppercase">Experience</h2>
+          <h2 className="text-primary text-xs tracking-[0.5em] font-bold uppercase">Esperienza</h2>
           <h3 className="text-5xl md:text-8xl font-display font-bold leading-[1.1] tracking-tight">
             Il mio percorso <br />
             <span className="text-muted-foreground">evolutivo.</span>
