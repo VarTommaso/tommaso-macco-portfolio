@@ -24,8 +24,8 @@ export async function sendEmail(formData: z.infer<typeof contactFormSchema>) {
 
   try {
     const { data, error } = await resend.emails.send({
-      from: "Portfolio <onboarding@resend.dev>", // Cambia con il tuo dominio verificato su Resend
-      to: ["tommasosviluppo@gmail.com"],
+      from: "Portfolio <supporto@tommasomacco.com>",
+      to: ["sviluppo@tommasomacco.com"],
       subject: `Nuovo contatto da ${name}: ${reason}`,
       replyTo: email,
       html: `

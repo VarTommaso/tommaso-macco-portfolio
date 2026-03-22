@@ -9,12 +9,12 @@ const Footer = () => {
   const socialLinks = [
     {
       name: "Instagram",
-      href: "https://instagram.com/tommasomacco",
+      href: "https://www.instagram.com/maccosviluppo",
       icon: Instagram,
     },
     {
       name: "LinkedIn",
-      href: "https://linkedin.com/in/tommasomacco",
+      href: "https://linkedin.com/in/maccosviluppo",
       icon: Linkedin,
     },
   ]

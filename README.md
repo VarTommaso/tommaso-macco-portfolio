@@ -14,9 +14,9 @@ Il mio portfolio personale, niente di piú.
 
 Non mordo e mi piace sempre parlare di nuovi progetti o di tecnologie interessanti. Se hai un'idea in mente o vuoi semplicemente salutarmi, mi trovi qui:
 
-- **Email:** macco.sviluppo@gmail.com
-- **LinkedIn:** [Tommaso Macco](https://linkedin.com/in/maccodeveloper/)
-- **Instagram:** [@tommasomacco](https://instagram.com/maccodeveloper)
+- **Email:** sviluppo@tommasomacco.com
+- **LinkedIn:** [Tommaso Macco](https://linkedin.com/in/maccosviluppo/)
+- **Instagram:** [@tommasomacco](https://www.instagram.com/maccosviluppo/)
 
 ---
 
