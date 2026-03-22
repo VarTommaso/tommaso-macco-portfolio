@@ -43,8 +43,8 @@ const projects = [
     ],
   },
   {
-    id: "iosono",
-    title: "IOSONO",
+    id: "iosno",
+    title: "IOSNO",
     category: "Digital Experience & LMS",
     badge: "PREMIUM VIDEO PLATFORM",
     link: "https://www.iosno.com",
