@@ -17,6 +17,7 @@ import {
   Search,
   Bot,
 } from "lucide-react"
+import { Blob } from "@/components/blob"
 
 const frontendSkills = [
   {
@@ -292,8 +293,11 @@ const Skills = () => {
         </motion.div>
       </div>
 
-      <div className="absolute top-1/4 left-[-10%] -z-20 h-[40%] w-[40%] rounded-full bg-primary/5 blur-[150px]" />
-      <div className="absolute right-[-10%] bottom-1/4 -z-20 h-[40%] w-[40%] rounded-full bg-secondary/5 blur-[150px]" />
+      <Blob color="primary" className="top-1/4 left-[-10%] h-[40%] w-[40%]" />
+      <Blob
+        color="secondary"
+        className="right-[-10%] bottom-1/4 h-[40%] w-[40%]"
+      />
     </section>
   )
 }

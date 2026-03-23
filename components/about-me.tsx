@@ -13,19 +13,12 @@ const AboutMe = () => {
     offset: ["start end", "end start"],
   })
 
-  // Spring per movimenti più fluidi
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  })
-
-  // Parallasse differenziato per profondità
-  const yImage = useTransform(smoothProgress, [0, 1], [150, -150])
-  const yText = useTransform(smoothProgress, [0, 1], [100, -100])
-  const rotateImage = useTransform(smoothProgress, [0, 1], [5, -5])
-  const opacity = useTransform(smoothProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0])
-  const scale = useTransform(smoothProgress, [0, 0.3], [0.95, 1])
+  // Parallasse differenziato per profondità (senza useSpring, affidato a Lenis)
+  const yImage = useTransform(scrollYProgress, [0, 1], [150, -150])
+  const yText = useTransform(scrollYProgress, [0, 1], [100, -100])
+  const rotateImage = useTransform(scrollYProgress, [0, 1], [5, -5])
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0])
+  const scale = useTransform(scrollYProgress, [0, 0.3], [0.95, 1])
 
   return (
     <section
@@ -35,7 +28,7 @@ const AboutMe = () => {
     >
       {/* Elemento decorativo di sfondo */}
       <motion.div
-        style={{ opacity: useTransform(smoothProgress, [0, 0.5], [0, 0.03]) }}
+        style={{ opacity: useTransform(scrollYProgress, [0, 0.5], [0, 0.03]) }}
         className="pointer-events-none absolute top-1/2 left-1/2 -z-20 -translate-x-1/2 -translate-y-1/2 font-display text-[25vw] font-bold whitespace-nowrap text-primary select-none"
       >
         ABOUT ME

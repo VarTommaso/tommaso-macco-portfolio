@@ -14,6 +14,7 @@ import * as Portal from "@radix-ui/react-portal"
 import { Button } from "@/components/ui/button"
 import { ShieldCheck, Zap, ArrowRight, Globe, X } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { Blob } from "@/components/blob"
 
 const projects = [
   {
@@ -280,11 +281,9 @@ const Projects = () => {
     target: containerRef,
     offset: ["start end", "end start"],
   })
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-  })
-  const y = useTransform(smoothProgress, [0, 1], [0, -80])
+
+  // Rimosso useSpring, affidiamo la fluidità direttamente a Lenis
+  const y = useTransform(scrollYProgress, [0, 1], [0, -80])
 
   return (
     <section
@@ -342,8 +341,14 @@ const Projects = () => {
           />
         )}
       </AnimatePresence>
-      <div className="absolute top-1/4 left-[-15%] -z-10 h-[50%] w-[50%] animate-pulse rounded-full bg-primary/5 blur-[180px]" />
-      <div className="absolute right-[-15%] bottom-[-15%] -z-10 h-[50%] w-[50%] rounded-full bg-secondary/5 blur-[180px]" />
+      <Blob
+        color="primary"
+        className="top-1/4 left-[-15%] h-[50%] w-[50%] animate-pulse"
+      />
+      <Blob
+        color="secondary"
+        className="right-[-15%] bottom-[-0%] h-[50%] w-[50%]"
+      />
     </section>
   )
 }

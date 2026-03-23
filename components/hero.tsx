@@ -62,14 +62,14 @@ const Hero = () => {
       >
         <motion.span
           variants={itemVariants}
-          className="mb-6 text-[10px] font-bold tracking-[0.4em] text-primary uppercase"
+          className="mb-4 text-[10px] font-bold tracking-[0.4em] text-primary uppercase md:mb-6 md:text-xs"
         >
           Sviluppatore Web Freelance · Savona · Liguria
         </motion.span>
 
         <motion.h1
           variants={itemVariants}
-          className="mb-8 max-w-6xl font-display text-5xl leading-[1.1] font-bold tracking-tight md:text-7xl lg:text-9xl"
+          className="mb-6 max-w-5xl font-display text-5xl leading-[1.1] font-bold tracking-tight md:mb-8 md:text-6xl lg:text-7xl xl:text-8xl"
         >
           Porto il tuo business <br />
           <span className="bg-gradient-to-r from-primary via-primary/80 to-secondary bg-clip-text text-transparent">
@@ -79,16 +79,16 @@ const Hero = () => {
 
         <motion.p
           variants={itemVariants}
-          className="mb-12 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base"
+          className="mb-10 max-w-xl text-sm leading-relaxed text-muted-foreground md:mb-12 md:text-base lg:max-w-2xl lg:text-lg"
         >
           Realizzo siti web ed e-commerce ad alte prestazioni che uniscono design d'avanguardia e strategie SEO efficaci. Il partner tecnologico per la tua crescita digitale a Savona e in tutta la Liguria.
         </motion.p>
 
-        <motion.div variants={itemVariants} className="flex flex-row gap-6">
+        <motion.div variants={itemVariants} className="flex flex-row gap-4 md:gap-6">
           <Button
             asChild
             size="lg"
-            className="rounded-full bg-primary px-10 py-7 font-display text-xs tracking-widest text-primary-foreground uppercase transition-all duration-300 hover:shadow-lg hover:shadow-primary/20"
+            className="rounded-full bg-primary px-8 py-6 font-display text-[10px] tracking-widest text-primary-foreground uppercase transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 md:px-10 md:py-7 md:text-xs"
           >
             <a href="#progetti">I Miei Lavori</a>
           </Button>
@@ -96,7 +96,7 @@ const Hero = () => {
             asChild
             variant="outline"
             size="lg"
-            className="rounded-full border-white/10 px-10 py-7 font-display text-xs tracking-widest uppercase transition-all duration-300 hover:bg-white/5"
+            className="rounded-full border-white/10 px-8 py-6 font-display text-[10px] tracking-widest uppercase transition-all duration-300 hover:bg-white/5 md:px-10 md:py-7 md:text-xs"
           >
             <a href="#contatti">Contattami</a>
           </Button>

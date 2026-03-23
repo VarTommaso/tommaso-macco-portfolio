@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { cn } from "@/lib/utils"
+import { Blob } from "@/components/blob"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -88,7 +89,7 @@ const Contact = () => {
               <h2 className="text-xs font-bold tracking-[0.5em] text-primary uppercase">
                 Get in touch
               </h2>
-              <h3 className="font-display text-6xl leading-[1.1] font-bold tracking-tight text-foreground md:text-8xl">
+              <h3 className="font-display text-6xl leading-tight font-bold tracking-tight text-foreground md:text-8xl">
                 Lavoriamo <br />
                 <span className="text-muted-foreground">Insieme.</span>
               </h3>
@@ -104,7 +105,7 @@ const Contact = () => {
                   <Mail className="size-6" />
                 </div>
                 <div>
-                  <div className="mb-1 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
+                  <div className="mb-1 text-xs font-bold tracking-widest text-muted-foreground uppercase">
                     Email
                   </div>
                   <a
@@ -121,7 +122,7 @@ const Contact = () => {
                   <Instagram className="size-6" />
                 </div>
                 <div>
-                  <div className="mb-1 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
+                  <div className="mb-1 text-xs font-bold tracking-widest text-muted-foreground uppercase">
                     Social
                   </div>
                   <div className="flex gap-4">
@@ -161,7 +162,7 @@ const Contact = () => {
                 <div className="flex flex-col gap-3">
                   <Label
                     htmlFor="name"
-                    className="ml-1 text-[10px] font-bold tracking-widest text-muted-foreground uppercase"
+                    className="ml-1 text-xs font-bold tracking-widest text-muted-foreground uppercase"
                   >
                     Nome Completo
                   </Label>
@@ -176,7 +177,7 @@ const Contact = () => {
                     )}
                   />
                   {errors.name && (
-                    <span className="text-destructive ml-1 text-[10px] font-bold">
+                    <span className="text-destructive ml-1 text-xs font-bold">
                       {errors.name.message}
                     </span>
                   )}
@@ -184,7 +185,7 @@ const Contact = () => {
                 <div className="flex flex-col gap-3">
                   <Label
                     htmlFor="email"
-                    className="ml-1 text-[10px] font-bold tracking-widest text-muted-foreground uppercase"
+                    className="ml-1 text-xs font-bold tracking-widest text-muted-foreground uppercase"
                   >
                     Email
                   </Label>
@@ -200,7 +201,7 @@ const Contact = () => {
                     )}
                   />
                   {errors.email && (
-                    <span className="text-destructive ml-1 text-[10px] font-bold">
+                    <span className="text-destructive ml-1 text-xs font-bold">
                       {errors.email.message}
                     </span>
                   )}
@@ -210,7 +211,7 @@ const Contact = () => {
               <div className="flex flex-col gap-3">
                 <Label
                   htmlFor="reason"
-                  className="ml-1 text-[10px] font-bold tracking-widest text-muted-foreground uppercase"
+                  className="ml-1 text-xs font-bold tracking-widest text-muted-foreground uppercase"
                 >
                   Motivazione
                 </Label>
@@ -240,7 +241,7 @@ const Contact = () => {
                   </SelectContent>
                 </Select>
                 {errors.reason && (
-                  <span className="text-destructive ml-1 text-[10px] font-bold">
+                  <span className="text-destructive ml-1 text-xs font-bold">
                     Seleziona una motivazione per procedere
                   </span>
                 )}
@@ -249,7 +250,7 @@ const Contact = () => {
               <div className="flex flex-col gap-3">
                 <Label
                   htmlFor="message"
-                  className="ml-1 text-[10px] font-bold tracking-widest text-muted-foreground uppercase"
+                  className="ml-1 text-xs font-bold tracking-widest text-muted-foreground uppercase"
                 >
                   Messaggio
                 </Label>
@@ -264,7 +265,7 @@ const Contact = () => {
                   )}
                 />
                 {errors.message && (
-                  <span className="text-destructive ml-1 text-[10px] font-bold">
+                  <span className="text-destructive ml-1 text-xs font-bold">
                     {errors.message.message}
                   </span>
                 )}
@@ -273,7 +274,7 @@ const Contact = () => {
               <Button
                 disabled={isPending}
                 type="submit"
-                className="h-16 rounded-full bg-primary font-display text-xs font-bold tracking-[0.2em] text-primary-foreground uppercase shadow-xl shadow-primary/10 transition-all hover:scale-[1.02] hover:shadow-primary/20 active:scale-[0.98] disabled:opacity-50"
+                className="h-16 rounded-full bg-primary font-display text-xs font-bold tracking-widest text-primary-foreground uppercase shadow-xl shadow-primary/10 transition-all hover:scale-[1.02] hover:shadow-primary/20 active:scale-[0.98] disabled:opacity-50"
               >
                 {isPending ? (
                   <span className="flex items-center gap-2">
@@ -290,9 +291,11 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* Decorative Blobs */}
-      <div className="absolute top-1/2 left-[-10%] -z-10 h-[40%] w-[40%] rounded-full bg-primary/5 blur-[150px]" />
-      <div className="absolute right-[-10%] bottom-[-10%] -z-10 h-[40%] w-[40%] rounded-full bg-secondary/5 blur-[150px]" />
+      <Blob color="primary" className="top-1/2 left-[-10%] h-[40%] w-[40%]" />
+      <Blob
+        color="secondary"
+        className="right-[-10%] bottom-[-10%] h-[40%] w-[40%]"
+      />
     </section>
   )
 }

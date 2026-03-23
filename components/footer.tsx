@@ -3,6 +3,8 @@
 import React from "react"
 import { Instagram, Linkedin, ArrowUpRight } from "lucide-react"
 
+import { Blob } from "@/components/blob"
+
 const Footer = () => {
   const currentYear = new Date().getFullYear()
 
@@ -129,8 +131,8 @@ const Footer = () => {
       </div>
 
       {/* Background Glow */}
-      <div className="absolute bottom-[-10%] left-[-10%] -z-10 h-64 w-64 rounded-full bg-primary/5 blur-[100px]" />
-      <div className="absolute right-[-5%] bottom-[-5%] -z-10 h-64 w-64 rounded-full bg-secondary/5 blur-[100px]" />
+      <Blob color="primary" className="bottom-[-10%] left-[-10%] h-64 w-64" />
+      <Blob color="secondary" className="right-[-5%] bottom-[-5%] h-64 w-64" />
     </footer>
   )
 }

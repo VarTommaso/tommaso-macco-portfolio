@@ -11,6 +11,8 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { Menu, X } from "lucide-react"
 
+import { Blob } from "@/components/blob"
+
 const Header = () => {
   const { scrollY } = useScroll()
   const [isScrolled, setIsScrolled] = useState(false)
@@ -236,8 +238,8 @@ const Header = () => {
             className="fixed inset-0 z-40 flex flex-col justify-center bg-background px-8 md:hidden"
           >
             {/* Background decorative elements */}
-            <div className="absolute top-0 right-0 -z-10 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
-            <div className="absolute bottom-0 left-0 -z-10 h-96 w-96 rounded-full bg-secondary/5 blur-3xl" />
+            <Blob color="primary" className="top-0 right-0 h-64 w-64" />
+            <Blob color="secondary" className="bottom-0 left-0 h-96 w-96" />
 
             <nav className="flex flex-col gap-8">
               {navLinks.map((link) => {
